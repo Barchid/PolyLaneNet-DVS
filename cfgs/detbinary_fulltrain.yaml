@@ -8,7 +8,7 @@ backup:
 model:
   name: PolyRegression
   parameters:
-    num_outputs: 35 # (5 lanes) * (1 conf + 2 (upper & lower) + 4 poly coeffs)
+    num_outputs: 28 # (4 lanes) * (1 conf + 2 (upper & lower) + 4 poly coeffs)
     pretrained: true
     backbone: 'snn'
     pred_category: false
@@ -41,7 +41,7 @@ datasets:
     parameters:
       dataset: det_binary
       split: train+val
-      img_size: [180, 320]
+      img_size: [128, 128]
       normalize: false
       aug_chance: 0.9090909090909091 # 10/11
       augmentations:
@@ -62,7 +62,7 @@ datasets:
     parameters:
       dataset: tusimple
       split: test
-      img_size: [180, 320]
+      img_size: [128, 128]
       root: "/datas/sandbox/DET"
       normalize: true
       augmentations: []
