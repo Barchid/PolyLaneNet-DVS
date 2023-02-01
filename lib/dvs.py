@@ -113,7 +113,6 @@ class SNNModule(nn.Module):
                 x,
                 "batch time channel height width -> batch (time channel) height width",
             )
-        elif self.mode == "cnn":
 
         x = self.encoder(x)
         x = self.fc(x)

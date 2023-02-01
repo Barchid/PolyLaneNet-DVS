@@ -204,7 +204,7 @@ class LaneDataset(Dataset):
 
     def __getitem__(self, idx, transform=True):
         item = self.dataset[idx]
-        img = cv2.imread(item['path'], cv2.IMREAD_GRAYSCALE)
+        img = cv2.imread(item['path'])
         label = item['label']
         if transform:
             line_strings = self.lane_to_linestrings(item['old_anno']['lanes'])
@@ -216,6 +216,10 @@ class LaneDataset(Dataset):
             label = self.transform_annotation(new_anno, img_wh=(self.img_w, self.img_h))['label']
 
         img = img / 255.
+        
+        #TODO: DVS
+        img = (img >= 0.5).astype(np.float32)
+        
         # if self.normalize:
         #     img = (img - IMAGENET_MEAN) / IMAGENET_STD
         img = self.to_tensor(img.astype(np.float32))
