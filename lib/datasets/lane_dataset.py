@@ -10,6 +10,7 @@ from .elas import ELAS
 from .llamas import LLAMAS
 from .tusimple import TuSimple
 from .nolabel_dataset import NoLabelDataset
+from .det_binary import DetBinary
 
 GT_COLOR = (255, 0, 0)
 PRED_HIT_COLOR = (0, 255, 0)
@@ -30,6 +31,8 @@ class LaneDataset(Dataset):
         super(LaneDataset, self).__init__()
         if dataset == 'tusimple':
             self.dataset = TuSimple(split=split, **kwargs)
+        elif dataset == "det_binary":
+            self.dataset = DetBinary(split=split, **kwargs)
         elif dataset == 'llamas':
             self.dataset = LLAMAS(split=split, **kwargs)
         elif dataset == 'elas':
@@ -201,7 +204,7 @@ class LaneDataset(Dataset):
 
     def __getitem__(self, idx, transform=True):
         item = self.dataset[idx]
-        img = cv2.imread(item['path'])
+        img = cv2.imread(item['path'], cv2.IMREAD_GRAYSCALE)
         label = item['label']
         if transform:
             line_strings = self.lane_to_linestrings(item['old_anno']['lanes'])
@@ -213,8 +216,8 @@ class LaneDataset(Dataset):
             label = self.transform_annotation(new_anno, img_wh=(self.img_w, self.img_h))['label']
 
         img = img / 255.
-        if self.normalize:
-            img = (img - IMAGENET_MEAN) / IMAGENET_STD
+        # if self.normalize:
+        #     img = (img - IMAGENET_MEAN) / IMAGENET_STD
         img = self.to_tensor(img.astype(np.float32))
         return (img, label, idx)
 

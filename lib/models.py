@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torchvision.models import resnet34, resnet50, resnet101
-from efficientnet_pytorch import EfficientNet
+from .dvs import SNNModule
 
 
 class OutputLayer(nn.Module):
@@ -50,6 +50,12 @@ class PolyRegression(nn.Module):
             self.model = resnet101(pretrained=pretrained)
             self.model.fc = nn.Linear(self.model.fc.in_features, num_outputs)
             self.model.fc = OutputLayer(self.model.fc, extra_outputs)
+        elif backbone == "snn":
+            self.model = SNNModule(mode="snn")
+        elif backbone == "cnn":
+            self.model = SNNModule(mode="cnn")
+        elif backbone == "3dcnn":
+            self.model = SNNModule(mode="3dcnn")
         else:
             raise NotImplementedError()
 
