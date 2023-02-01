@@ -60,7 +60,7 @@ datasets:
   test: &test
     type: LaneDataset
     parameters:
-      dataset: tusimple
+      dataset: det_binary
       split: test
       img_size: [128, 128]
       root: "/datas/sandbox/DET"
