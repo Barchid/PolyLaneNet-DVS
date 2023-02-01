@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import torchvision.models as models
-import sew_resnet
+from . import sew_resnet
 from spikingjelly.clock_driven import neuron, functional, surrogate, layer
 from einops import rearrange
 
