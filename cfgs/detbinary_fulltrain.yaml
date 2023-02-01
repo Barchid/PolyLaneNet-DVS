@@ -8,7 +8,7 @@ backup:
 model:
   name: PolyRegression
   parameters:
-    num_outputs: 28 # (4 lanes) * (1 conf + 2 (upper & lower) + 4 poly coeffs)
+    num_outputs: 30 # (4 lanes) * (1 conf + 2 (upper & lower) + 4 poly coeffs)
     pretrained: true
     backbone: 'snn'
     pred_category: false
