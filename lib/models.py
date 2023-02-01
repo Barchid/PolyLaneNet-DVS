@@ -52,10 +52,16 @@ class PolyRegression(nn.Module):
             self.model.fc = OutputLayer(self.model.fc, extra_outputs)
         elif backbone == "snn":
             self.model = SNNModule(mode="snn")
+            self.model.fc = nn.Linear(self.model.fc.in_features, num_outputs)
+            self.model.fc = OutputLayer(self.model.fc, extra_outputs)
         elif backbone == "cnn":
             self.model = SNNModule(mode="cnn")
+            self.model.fc = nn.Linear(self.model.fc.in_features, num_outputs)
+            self.model.fc = OutputLayer(self.model.fc, extra_outputs)
         elif backbone == "3dcnn":
             self.model = SNNModule(mode="3dcnn")
+            self.model.fc = nn.Linear(self.model.fc.in_features, num_outputs)
+            self.model.fc = OutputLayer(self.model.fc, extra_outputs)
         else:
             raise NotImplementedError()
 
