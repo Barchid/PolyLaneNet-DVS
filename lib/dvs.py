@@ -11,6 +11,7 @@ TIMESTEPS = 12
 IN_CHANNELS = 2
 MODE = "SNN"
 
+
 def get_encoder_3d(in_channels: int) -> nn.Module:
     # resnet18 = models.video.r3d_18()
     resnet18 = models.video.mc3_18()
@@ -100,9 +101,11 @@ class SNNModule(nn.Module):
         self.mode = mode
 
     def forward(self, x):
-        print(x.shape)
-        exit()
-
+        # x = B,3,H,W
+        x = x[:, 0:2, :, :]  # x = B,2,H,W
+        x.unsqueeze_(0)
+        x = x.repeat(TIMESTEPS, 1, 1, 1, 1)  # x = T,B,2,H,W
+        
         if self.mode == "snn":
             functional.reset_net(self.encoder)
             x = x.permute(1, 0, 2, 3, 4)  # from (B,T,C,H,W) to (T, B, C, H, W)
