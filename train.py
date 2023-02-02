@@ -185,6 +185,9 @@ if __name__ == "__main__":
         exp_root = setup_exp_dir(cfg['exps_dir'], args.exp_name, args.cfg)
     else:
         exp_root = os.path.join(cfg['exps_dir'], os.path.basename(os.path.normpath(args.exp_name)))
+        
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
 
     logging.basicConfig(
         format="[%(asctime)s] [%(levelname)s] %(message)s",
