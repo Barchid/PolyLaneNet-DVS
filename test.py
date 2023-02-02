@@ -112,6 +112,10 @@ if __name__ == "__main__":
 
     # Set up logging
     exp_root = os.path.join(cfg['exps_dir'], os.path.basename(os.path.normpath(args.exp_name)))
+    
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+        
     logging.basicConfig(
         format="[%(asctime)s] [%(levelname)s] %(message)s",
         level=logging.INFO,
