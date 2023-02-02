@@ -111,6 +111,8 @@ class LaneDataset(Dataset):
             _, label, _ = self.__getitem__(idx)
 
         img_h, img_w, _ = img.shape
+        
+        img = img.copy()
 
         # Draw label
         for i, lane in enumerate(label):

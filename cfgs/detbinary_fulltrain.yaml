@@ -64,7 +64,7 @@ datasets:
       split: test
       img_size: [128, 128]
       root: "/datas/sandbox/DET"
-      normalize: true
+      normalize: false
       augmentations: []
 
   # val = test

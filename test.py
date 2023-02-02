@@ -62,8 +62,8 @@ def test(model, test_loader, evaluator, exp_root, cfg, view, epoch, max_batches=
                     idx,
                     pred=outputs[0].cpu().numpy(),
                     cls_pred=extra_outputs[0].cpu().numpy() if extra_outputs is not None else None)
-                cv2.imshow('pred', preds)
-                cv2.waitKey(0)
+                # cv2.imshow('pred', preds)
+                cv2.imwrite(f"visualizations/{idx}.png", preds)
 
     if verbose:
         logging.info("Testing time: {:.4f}".format(time() - test_t0))
