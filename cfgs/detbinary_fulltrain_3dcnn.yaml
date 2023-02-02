@@ -10,7 +10,7 @@ model:
   parameters:
     num_outputs: 28 # (4 lanes) * (1 conf + 2 (upper & lower) + 4 poly coeffs)
     pretrained: true
-    backbone: 'snn'
+    backbone: '3dcnn'
     pred_category: false
     curriculum_steps: [0, 0, 0, 0]
 loss_parameters:
