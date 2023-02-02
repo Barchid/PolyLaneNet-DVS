@@ -7,5 +7,5 @@ config.yaml
 lib/nms/build/
 lib/nms/dist/
 try.py
-visualizations/*
-!visualizations/.gitkeep
+vizualizations/*
+!vizualizations/.gitkeep
