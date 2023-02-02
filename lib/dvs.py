@@ -105,18 +105,19 @@ class SNNModule(nn.Module):
         x = x[:, 0:2, :, :]  # x = B,2,H,W
         x.unsqueeze_(0)
         x = x.repeat(TIMESTEPS, 1, 1, 1, 1)  # x = T,B,2,H,W
-        
+
         if self.mode == "snn":
             functional.reset_net(self.encoder)
-            x = x.permute(1, 0, 2, 3, 4)  # from (B,T,C,H,W) to (T, B, C, H, W)
+            # x = x.permute(1, 0, 2, 3, 4)  # from (B,T,C,H,W) to (T, B, C, H, W)
         elif self.mode == "3dcnn":
-            x = x.permute(0, 2, 1, 3, 4)  # from (B,T,C,H,W) to (B,C,T,H,W)
+            x = x.permute(1, 2, 0, 3, 4)  # from (T,B,C,H,W) to (B,C,T,H,W)
         elif self.mode == "cnn" and len(x.shape) == 5:
             x = rearrange(
                 x,
-                "batch time channel height width -> batch (time channel) height width",
+                "time batch channel height width -> batch (time channel) height width",
             )
 
         x = self.encoder(x)
         x = self.fc(x)
+
         return x
