@@ -94,6 +94,7 @@ def train(model, train_loader, exp_dir, cfg, val_loader, train_state=None):
                 verbose=False,
             )
             _, results = evaluator.eval(label=None, only_metrics=True)
+            print(results)
             logging.info("Epoch [{}/{}], Val loss: {:.4f}".format(epoch, num_epochs, val_loss))
             model.train()
         scheduler.step()
