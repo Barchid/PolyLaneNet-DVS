@@ -43,7 +43,9 @@ def train(model, train_loader, exp_dir, cfg, val_loader, train_state=None):
         epoch_t0 = time()
         logging.info("Beginning epoch {}".format(epoch))
         accum_loss = 0
+        print(f"Epoch {epoch} / {num_epochs}")
         for i, (images, labels, img_idxs) in enumerate(train_loader):
+            print(f"Batch n°{i}")
             total_iter += 1
             iter_t0 = time()
             images = images.to(device)
