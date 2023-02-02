@@ -13,6 +13,7 @@ import torch
 from lib.config import Config
 from utils.evaluator import Evaluator
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 def test(model, test_loader, evaluator, exp_root, cfg, view, epoch, max_batches=None, verbose=True):
     if verbose:
