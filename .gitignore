@@ -8,4 +8,4 @@ lib/nms/build/
 lib/nms/dist/
 try.py
 visualizations/*
-!visualization/.gitkeep
+!visualizations/.gitkeep
