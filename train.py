@@ -16,6 +16,7 @@ from utils.evaluator import Evaluator
 
 
 def train(model, train_loader, exp_dir, cfg, val_loader, train_state=None):
+    best = -1
     # Get initial train state
     optimizer = cfg.get_optimizer(model.parameters())
     scheduler = cfg.get_lr_scheduler(optimizer)
@@ -80,8 +81,12 @@ def train(model, train_loader, exp_dir, cfg, val_loader, train_state=None):
                 ))
         logging.info("Epoch time: {:.4f}".format(time() - epoch_t0))
         if epoch % MODEL_SAVE_INTERVAL == 0 or epoch == num_epochs:
-            model_path = os.path.join(exp_dir, "models", "model_{:03d}.pt".format(epoch))
-            save_train_state(model_path, model, optimizer, scheduler, epoch)
+            indic_loss = loss.clone().detach().cpu().item()
+            if indic_loss > best:
+                best = indic_loss
+                # model_path = os.path.join(exp_dir, "models", "model_{:03d}.pt".format(epoch))
+                model_path = os.path.join(exp_dir, "models", "model_best.pt".format(epoch))
+                save_train_state(model_path, model, optimizer, scheduler, epoch)
         if val_loader is not None:
             evaluator = Evaluator(val_loader.dataset, exp_root)
             evaluator, val_loss = test(
