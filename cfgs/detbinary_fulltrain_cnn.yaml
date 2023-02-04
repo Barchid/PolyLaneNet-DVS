@@ -13,6 +13,7 @@ model:
     backbone: 'cnn'
     pred_category: false
     curriculum_steps: [0, 0, 0, 0]
+    ckpt: experiments/encoders/cnn_ncaltech101.pt
 loss_parameters:
   conf_weight: 1
   lower_weight: 1

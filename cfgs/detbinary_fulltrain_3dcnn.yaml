@@ -13,6 +13,7 @@ model:
     backbone: '3dcnn'
     pred_category: false
     curriculum_steps: [0, 0, 0, 0]
+    ckpt: experiments/encoders/3dcnn_ncaltech101.pt
 loss_parameters:
   conf_weight: 1
   lower_weight: 1
@@ -41,7 +42,7 @@ datasets:
     parameters:
       dataset: det_binary
       split: train+val
-      img_size: [128, 128]
+      img_size: [180, 320]
       normalize: false
       aug_chance: 0.9090909090909091 # 10/11
       augmentations:
@@ -62,7 +63,7 @@ datasets:
     parameters:
       dataset: det_binary
       split: test
-      img_size: [128, 128]
+      img_size: [180, 320]
       root: "/datas/sandbox/DET"
       normalize: false
       augmentations: []

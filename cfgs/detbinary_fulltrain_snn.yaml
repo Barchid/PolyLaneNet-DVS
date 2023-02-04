@@ -13,6 +13,7 @@ model:
     backbone: 'snn'
     pred_category: false
     curriculum_steps: [0, 0, 0, 0]
+    ckpt: experiments/encoders/snn_ncaltech101.pt
 loss_parameters:
   conf_weight: 1
   lower_weight: 1

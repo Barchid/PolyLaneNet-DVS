@@ -30,7 +30,9 @@ class PolyRegression(nn.Module):
                  curriculum_steps=None,
                  extra_outputs=0,
                  share_top_y=True,
-                 pred_category=False):
+                 pred_category=False,
+                 ckpt=None
+                 ):
         super(PolyRegression, self).__init__()
         if 'efficientnet' in backbone:
             if pretrained:
@@ -52,14 +54,26 @@ class PolyRegression(nn.Module):
             self.model.fc = OutputLayer(self.model.fc, extra_outputs)
         elif backbone == "snn":
             self.model = SNNModule(mode="snn")
+            
+            if ckpt is not None:
+                self.model.encoder.load_state_dict(torch.load(ckpt))
+            
             self.model.fc = nn.Linear(self.model.fc.in_features, num_outputs)
             self.model.fc = OutputLayer(self.model.fc, extra_outputs)
         elif backbone == "cnn":
             self.model = SNNModule(mode="cnn")
+            
+            if ckpt is not None:
+                self.model.encoder.load_state_dict(torch.load(ckpt))
+            
             self.model.fc = nn.Linear(self.model.fc.in_features, num_outputs)
             self.model.fc = OutputLayer(self.model.fc, extra_outputs)
         elif backbone == "3dcnn":
             self.model = SNNModule(mode="3dcnn")
+            
+            if ckpt is not None:
+                self.model.encoder.load_state_dict(torch.load(ckpt))
+            
             self.model.fc = nn.Linear(self.model.fc.in_features, num_outputs)
             self.model.fc = OutputLayer(self.model.fc, extra_outputs)
         else:
