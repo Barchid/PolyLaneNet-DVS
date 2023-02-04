@@ -554,11 +554,11 @@ class MultiStepSEWResNet(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         
         # CHANGE HERE TODO
-        # self.fc = nn.Linear(512 * block.expansion, 512 * block.expansion)
-        self.fc = nn.Sequential(
-            nn.Linear(512 * block.expansion, 512 * block.expansion),
-            nn.Dropout()
-        )
+        self.fc = nn.Linear(512 * block.expansion, 512 * block.expansion)
+        # self.fc = nn.Sequential(
+        #     nn.Linear(512 * block.expansion, 512 * block.expansion),
+        #     nn.Dropout()
+        # )
         self.final_neurons = MultiStepIFNode(
             v_threshold=1.0 if output_all else float("inf"),
             v_reset=0.0,
