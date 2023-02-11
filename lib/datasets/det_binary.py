@@ -17,7 +17,7 @@ SPLIT_FILES = {
 
 
 class DetBinary(object):
-    def __init__(self, split='train', max_lanes=None, root=None, metric='default'):
+    def __init__(self, split='train', max_lanes=None, root=None, metric='ours'):
         self.split = split
         self.root = root
         self.metric = metric
